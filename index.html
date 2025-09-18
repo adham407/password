@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Keypad</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 260px;
+    }
+
+    .display {
+      font-size: 22px;
+      letter-spacing: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+      width: 90%;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    .zero {
+      grid-column: 2;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .clear {
+      background: crimson;
+      flex: 1;
+    }
+
+    .enter {
+      background: green;
+      flex: 1;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .wrong {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Password Keypad</h2>
+    <input type="password" id="passwordInput" class="display" placeholder="******" maxlength="6" readonly>
+    
+    <div class="keypad">
+      <button onclick="pressNum('1')">1</button>
+      <button onclick="pressNum('2')">2</button>
+      <button onclick="pressNum('3')">3</button>
+      <button onclick="pressNum('4')">4</button>
+      <button onclick="pressNum('5')">5</button>
+      <button onclick="pressNum('6')">6</button>
+      <button onclick="pressNum('7')">7</button>
+      <button onclick="pressNum('8')">8</button>
+      <button onclick="pressNum('9')">9</button>
+      <button onclick="pressNum('0')" class="zero">0</button>
+    </div>
+
+    <div class="actions">
+      <button onclick="clearInput()" class="clear">Clear</button>
+      <button onclick="checkPassword()" class="enter">Enter</button>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const correctPassword = "123456"; 
+
+    function pressNum(num) {
+      let input = document.getElementById("passwordInput");
+      if (input.value.length < 6) {
+        input.value += num;
+      }
+    }
+
+    function clearInput() {
+      document.getElementById("passwordInput").value = "";
+      document.getElementById("message").textContent = "";
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      const message = document.getElementById("message");
+
+      if (input === correctPassword) {
+        message.textContent = "Correct ✅";
+        message.className = "correct";
+      } else {
+        message.textContent = "Wrong ❌";
+        message.className = "wrong";
+      }
+    }
+  </script>
+</body>
+</html>
